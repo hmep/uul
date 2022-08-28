@@ -1,0 +1,251 @@
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{textcomp}
+\RequirePackage{graphicx}
+\RequirePackage{hyperref}
+%\RequirePackage{memhfixc}
+%\RequirePackage{mempatch}
+%\RequirePackage{ichiswedish} % loads babel with swedish option and more
+\RequirePackage{courier}
+\RequirePackage{soul}
+\RequirePackage{url}
+\RequirePackage[bindingoffset=18pt]{geometry}
+\RequirePackage{ragged2e} % enables ragged right and hyphenation
+%\RequirePackage{ichiswedish}
+\RequirePackage[font=small,labelfont=bf]{caption} %def i memoir istället?
+\renewcommand{\captionfont}{\small\itshape\raggedright}
+%\renewcommand{\captionfont}{\flushleft\small\itshape} % mti - bättre sätt att göra detta?
+
+\hypersetup{
+    colorlinks,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor=black,%
+    urlcolor=black
+}
+
+\memhyperindexfalse
+
+%% Define a new 'hme' style for the package that will use a smaller font.
+\makeatletter
+\def\url@hmestyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\rmfamily}}}
+\makeatother
+%% Now actually use the newly defined style.
+\urlstyle{hme}
+
+%%%%%%%%%% STOCK AND PAGE DIMENSIONS
+
+%\usepackage[papersize={140mm,216mm},hmargin={33mm,16mm},tmargin=3\baselineskip,footskip=2.5\baselineskip,lines=43]{geometry}
+
+\setstocksize{9.21in}{6.14in} % paper size used for printing
+\settrimmedsize{9.21in}{6.14in}{*} % final dimensions of trimmed stock
+\settrims{0pt}{0pt} % should be 0 if stock and trim sizes are the same
+\settypeblocksize{47\onelineskip}{*}{*}
+%\settypeblocksize{47\onelineskip}{21pc}{*}
+\setlrmarginsandblock{1.2in}{0.8in}{*} % block width automatically calculated 
+%\setulmarginsandblock{0.6in}{0.9in}{*} % block height automatically calculated
+\setulmargins{*}{0.9in}{*} % block height automatically calculated
+\setheaderspaces{*}{*}{0.618}
+\setheadfoot{\onelineskip}{2\onelineskip}
+%\setheaderspaces{*}{2\onelineskip}{*}
+\setmarginnotes{17pt}{51pt}{\onelineskip}
+
+%\setlength{\topskip}{1.6\topskip}
+
+
+\checkandfixthelayout % apply the above values
+
+
+%%%%%%%%%% MISC 
+
+\raggedbottom
+\setlength{\parskip}{0pt}
+%\setlength{\RaggedRightRightskip}{0pt plus 2em} %default 0pt plus 2em
+%\RaggedRight %ragged2e syntax
+\frenchspacing
+\setlength{\parindent}{\baselineskip}
+%\setsecnumdepth{section}
+\setcounter{secnumdepth}{2}
+\setlength{\abovecaptionskip}{4pt} % mti - var 6pt
+\setlength{\belowcaptionskip}{0pt}
+% mti - kopiera till .sty
+\renewcommand{\chapterrefname}{kapitel~}
+\renewcommand{\figurerefname}{bild}
+
+\newcommand{\xbild}[3]{
+  \begin{figure}[htb] 
+    %\centering\includegraphics[width=\the\textwidth]{bilder/#1}
+    \includegraphics[scale=0.4]{#1#2}
+    \caption{#3}\label{#2}
+  \end{figure}
+}
+
+\newcommand{\xbildl}[3]{
+  \begin{figure}[htb] 
+    %\centering\includegraphics[width=\the\textwidth]{bilder/#1}
+    \includegraphics[scale=0.8]{#1#2}
+    \caption{#3}\label{#2}
+  \end{figure}
+}
+
+
+\newcommand{\xbildw}[3]{ % Bred (wide) bild
+  \begin{figure}[htb] 
+    \includegraphics[width=\the\textwidth]{#1#2}
+    %\centering\includegraphics[scale=0.4]{bilder/#1}
+    \caption{#3}\label{#2}
+  \end{figure}
+}
+
+\newcommand\Fref[1]{Bild~\ref{#1}} % som \fref men med Bild istället för bild
+
+\newcommand\xtilde{\~{ }}  % förbättra denna
+
+
+%%%%%%%%%% CHAPTER- AND PAGESTYLES
+
+%\definecolor{hmegrey}{hmegray}{0.5}
+%\definecolor{hmegrey}{hmeblack}{0.5}
+
+\makechapterstyle{lfng}{%
+\setlength{\beforechapskip}{2.5\baselineskip} %skip från överkant
+\renewcommand{\printchaptername}{} %ta bort ordet "kapitel"
+\renewcommand{\chapnumfont}{\fontsize{10\baselineskip}{10\baselineskip}\usefont{T1}{fls}{b}{n}\centering} %formattering kapitelnummer
+\setlength{\midchapskip}{1.5\baselineskip} %skip mellan titel och text
+\renewcommand{\chaptitlefont}{\usefont{T1}{fls}{b}{n}\huge\centering} %formattering titel
+%\renewcommand{\printchaptertitle}[1]{\chaptitlefont\so{\MakeUppercase{##1}}}
+\setlength{\afterchapskip}{2\baselineskip} %skip mellan titel och text
+\makeoddfoot{plain}{}{}{} % töm sidfot
+}
+
+\makechapterstyle{lfngnonum}{%
+\setlength{\beforechapskip}{14\baselineskip} %skip från överkant
+\setlength{\midchapskip}{15\baselineskip} %skip mellan titel och text
+\renewcommand{\chaptitlefont}{\usefont{T1}{fls}{b}{n}\huge\centering} %formattering titel
+\makeoddfoot{plain}{}{}{} % töm sidfot
+}
+
+\renewcommand{\chaptermark}[1]{\markboth{{#1}}{}}
+\renewcommand{\sectionmark}[1]{\markright{{#1}}}
+
+\makechapterstyle{xempty}{%
+\makeoddfoot{xempty}{}{}{}%
+}
+
+\makepagestyle{xempty}{
+\makeevenhead{xempty}{a}{a}{a}%
+\makeoddhead{xempty}{b}{b}{b}%
+\makeevenfoot{xempty}{x}{x}{x}%
+\makeevenfoot{xempty}{y}{y}{y}%
+}
+
+\makepagestyle{lfng}
+\makeevenhead{lfng}%
+  {}{}{}
+\makeoddhead{lfng}%
+  {}{}{}
+\makeevenfoot{lfng}%
+%  {\sffamily\bfseries\footnotesize\thepage\mdseries\hskip\baselineskip\scriptsize\leftmark}{}{}
+  {\thepage\hskip\baselineskip\footnotesize\leftmark}{}{}
+\makeoddfoot{lfng}%
+%  {}{}{\sffamily\scriptsize\rightmark\bfseries\footnotesize\hskip\baselineskip\thepage}
+  {}{}{\footnotesize\rightmark\normalsize\hskip\baselineskip\thepage}
+
+%\hangsecnum % hang sectional numbers in the margin
+
+\renewcommand{\partnamefont}{\sffamily\huge\bfseries}
+\renewcommand{\partnumfont}{\sffamily\huge\bfseries}
+\renewcommand{\parttitlefont}{\sffamily\Huge\bfseries}
+\renewcommand{\chapnamefont}{\sffamily\huge\bfseries}
+\renewcommand{\chapnumfont}{\sffamily\huge\bfseries}
+\renewcommand{\chaptitlefont}{\sffamily\huge\bfseries}
+\renewcommand{\secheadstyle}{\sffamily\bfseries\LARGE}
+\renewcommand{\subsecheadstyle}{\sffamily\Large\bfseries\raggedright}
+\renewcommand{\subsubsecheadstyle}{\sffamily\normalsize\bfseries\raggedright}
+\renewcommand{\paraheadstyle}{\sffamily\normalsize\bfseries}
+\renewcommand{\subparaheadstyle}{\sffamily\normalsize\bfseries}
+
+%%%% INTRO
+%\def\xintro#1\par{{\LARGE{\noindent #1}\par\vskip.75\onelineskip}}
+\def\xintro#1\par{{\LARGE{\noindent #1}\newpage}}
+
+\newcommand\yabbadabba[1]{%
+\newpage\hbox{}\vskip14\baselineskip %skip från överkant
+{\centering{\usefont{T1}{fls}{b}{n}\huge{#1}}}
+\vskip5\baselineskip %skip mellan titel och text
+}
+
+
+
+\renewcommand{\pagerefname}{sidan} %page
+\renewcommand{\sectionrefname}{sektion~} %page
+
+\newcommand\xposskip{\vskip.75\onelineskip}
+\newcommand\xnegskip{\vskip-.75\onelineskip}
+%\newcommand\xnegskip{}
+
+%\newcommand\xnote[1]{\par\vskip\onelineskip\noindent\makebox[0pt][r]{\fontfamily{fls}\selectfont\footnotesize\textbf{OBS!}\normalsize\hskip\labelsep}\textit{#1}\par}
+
+%\newcommand\xtip[1]{\par\vskip\onelineskip\noindent\makebox[0pt][r]{\fontfamily{fls}\selectfont\footnotesize\textbf{TIPS!}\normalsize\hskip\labelsep}\textit{#1}\par}
+
+\newcommand\xnote[1]{\addvspace{.75\baselineskip}\noindent\makebox[0pt][r]{\fontfamily{fls}\selectfont\footnotesize\textbf{OBS!}\normalsize\hskip\labelsep}\textit{#1}\vspace{.75\baselineskip}}
+
+\newcommand\xtip[1]{\addvspace{.75\baselineskip}\noindent\makebox[0pt][r]{\fontfamily{fls}\selectfont\footnotesize\textbf{TIPS!}\normalsize\hskip\labelsep}\textit{#1}\vspace{.75\baselineskip}}
+
+\newcommand\xwin[1]{\noindent\makebox[0pt][r]{\fontfamily{fls}\selectfont\footnotesize\textbf{DUBBEL}\normalsize\hskip\labelsep}{#1}\vskip.75\onelineskip}
+
+\newcommand\xlin[1]{\noindent\makebox[0pt][r]{\fontfamily{fls}\selectfont\footnotesize\textbf{UBUNTU}\normalsize\hskip\labelsep}{#1}\vskip.75\onelineskip}
+
+\newcommand\xitem[2]{\item{\textbf{#1\hskip\labelsep}}{#2}}
+
+\newcommand\xext{\textbf{Nästa}}
+
+\newcommand\xnasta{\textbf{Nästa}}
+
+\newcommand\xenter{\textsc{enter}}
+
+\newcommand\xkey[1]{\textsc{#1}}
+
+\newcommand\xesc{\textsc{esc}}
+
+\newcommand\xlaggtill{\textbf{L\"agg till}}
+
+\newcommand\xcmd[1]{\texttt{#1}}
+
+\newcommand\xopt[1]{\textbf{#1}}
+
+\newcommand\xcmdline[1]{\vskip.5\onelineskip\noindent\texttt{#1}\vskip.5\onelineskip}
+
+\newcommand\subtitle[1]{\Large{#1}\normalsize}
+
+\newcommand\xok{\textbf{OK}}
+
+\newcommand\xja{\textbf{Ja}}
+
+\newcommand\xclose{\textbf{Close}}
+
+\newcommand\xstang{\textbf{St\"ang}}
+
+\newcommand\xupdate{\textbf{Pakethanterare}}
+
+\newcommand\xnext{\textbf{Nästa}}
+
+\newcommand\xinmatning[1]{\texttt{\textbf{#1}}}
+
+\newcommand\xsign[1]{#1}
+
+\newcommand\xeng[1]{\textit{#1} på engelska}
+
+\newcommand\xdefinition[1]{\textit{#1}\index{#1}}
+
+\newcommand\xcommandstyle[1]{\textbf{\texttt{#1}}}
+\newcommand\xcommand[1]{\xcommandstyle{#1}}
+
+\newcommand\xkeycombination[1]{#1}
+\newcommand\xuser[1]{#1}
+\newcommand\cmdref[1]{#1}
+\newcommand\xoption[1]{\texttt{\textbf{#1}}}
+\newcommand\xargument[1]{\texttt{#1}}
+\newcommand\xcode[1]{\medskip\texttt{#1}\medskip}
+\newcommand\xdefinitionstyle[1]{#1}
